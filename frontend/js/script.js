@@ -1,4 +1,4 @@
-const API = "http://localhost:5000/api";
+const API = location.port === "5500" ? "http://localhost:5000/api" : "/api";;
 
 const fmtKes = (n) =>
   new Intl.NumberFormat("en-KE", {

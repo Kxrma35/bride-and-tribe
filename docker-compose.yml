@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: ./backend
+    environment:
+      JWT_SECRET: ${JWT_SECRET:?set in .env}
+      DARAJA_ENV: ${DARAJA_ENV:-sandbox}
+      DARAJA_CONSUMER_KEY: ${DARAJA_CONSUMER_KEY:-}
+      DARAJA_CONSUMER_SECRET: ${DARAJA_CONSUMER_SECRET:-}
+      DARAJA_SHORTCODE: ${DARAJA_SHORTCODE:-174379}
+      DARAJA_PASSKEY: ${DARAJA_PASSKEY:-}
+      DARAJA_CALLBACK_URL: ${DARAJA_CALLBACK_URL:-https://example.com/api/mpesa/callback}
+    volumes:
+      - dbdata:/app/data
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  dbdata:
