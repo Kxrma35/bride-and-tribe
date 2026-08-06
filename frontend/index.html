@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bride and Tribe — Bridal Boutique, Nairobi</title>
+  <meta name="description" content="Bride and Tribe bridal boutique. Designer wedding dresses and formal attire in Nairobi. Book an appointment and find the one." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: "#01315C",
+            beige: "#DDB9A2",
+            peach: "#FADCCB",
+            peachsoft: "#FDEEE4",
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', "Georgia", "serif"],
+            sans: ["Jost", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="font-serif text-navy bg-white">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-peachsoft">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-6">
+      <a href="index.html" class="flex flex-col items-center leading-none">
+        <span class="text-2xl font-semibold tracking-wide">Bride &amp; Tribe</span>
+        <span class="font-sans text-[10px] tracking-[0.5em] uppercase text-beige mt-1">Bridal Boutique</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 font-sans text-sm tracking-widest uppercase">
+        <a href="#dresses" class="border-b-2 border-transparent hover:border-beige py-1">Wedding Dresses</a>
+        <a href="#brides" class="border-b-2 border-transparent hover:border-beige py-1">Our Brides</a>
+        <a href="#appointment" class="rounded-full bg-gradient-to-r from-peach to-beige px-6 py-2.5 text-navy hover:opacity-90 transition">Request Appointment</a>
+      </nav>
+
+      <div class="flex items-center gap-4 font-sans text-sm">
+        <span class="hidden lg:inline tracking-wide">(0712) 345 678</span>
+        <button id="menu-btn" class="md:hidden text-2xl" aria-label="Toggle menu">&#9776;</button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <nav id="mobile-menu" class="hidden md:hidden flex-col gap-4 px-6 pb-6 font-sans text-sm tracking-widest uppercase">
+      <a href="#dresses" class="block py-2">Wedding Dresses</a>
+      <a href="#brides" class="block py-2">Our Brides</a>
+      <a href="#appointment" class="block py-2">Request Appointment</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative min-h-[75vh] flex items-center bg-gradient-to-br from-peachsoft via-peach to-beige overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 py-24 relative">
+      <p class="font-sans text-xs tracking-[0.32em] uppercase text-navy/70 mb-5">Timeless beauty, unforgettable moments</p>
+      <h1 class="text-5xl md:text-7xl lg:text-8xl leading-tight">Find the <em class="font-normal">Perfect Dress</em></h1>
+      <p class="font-sans font-light text-lg max-w-xl mt-6 mb-9 text-navy/80">
+        Visit Bride and Tribe for the ultimate wedding dress shopping experience
+        and view our extensive collection of designer wedding gowns and formal attire.
+      </p>
+      <a href="#appointment" class="inline-block rounded-full bg-navy text-white font-sans text-sm tracking-[0.22em] uppercase px-9 py-4 hover:-translate-y-0.5 hover:shadow-xl transition">Request Appointment</a>
+    </div>
+  </section>
+
+  <!-- Dresses -->
+  <section id="dresses" class="py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <p class="font-sans text-xs tracking-[0.32em] uppercase text-beige mb-3">Let's find the one</p>
+        <h2 class="text-4xl md:text-5xl">Wedding Dresses</h2>
+        <p class="font-sans font-light mt-4 text-navy/80">
+          Silhouettes for every bride — fitted mermaids, romantic ballgowns,
+          and bohemian sheaths from designers we love.
+        </p>
+      </div>
+      <div id="dress-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- filled by script.js -->
+      </div>
+      <p id="dress-error" class="hidden font-sans text-center text-navy/60 mt-8">
+        Could not load dresses. Is the API running on port 5000?
+      </p>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="brides" class="py-24 bg-peachsoft">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <p class="font-sans text-xs tracking-[0.32em] uppercase text-beige mb-3">Our brides</p>
+        <h2 class="text-4xl md:text-5xl">Bride &amp; Tribe Brides</h2>
+        <p class="font-sans font-light mt-4 text-navy/80">We are so fortunate to be part of so many beautiful wedding stories.</p>
+      </div>
+      <div id="testimonial-list" class="max-w-2xl mx-auto space-y-8">
+        <!-- filled by script.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Appointment -->
+  <section id="appointment" class="py-24">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+      <div class="rounded-lg bg-gradient-to-br from-peach to-beige p-10 lg:p-12">
+        <h2 class="text-4xl mb-5">Request an Appointment</h2>
+        <p class="font-sans font-light text-navy/85">
+          Bridal appointments are private and unhurried — you and your tribe get
+          the boutique, a dedicated stylist, and gowns pulled just for you.
+          We confirm every appointment by phone.
+        </p>
+      </div>
+
+      <form id="appointment-form" class="border border-navy p-8 lg:p-10">
+        <div id="appt-success" class="hidden font-sans text-sm bg-green-50 text-green-800 px-4 py-3 mb-4">
+          Thank you! We will call you to confirm your appointment.
+        </div>
+        <div id="appt-error" class="hidden font-sans text-sm bg-red-50 text-red-800 px-4 py-3 mb-4"></div>
+
+        <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="appt-name">Full name</label>
+        <input id="appt-name" required class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
+
+        <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="appt-phone">Phone</label>
+        <input id="appt-phone" type="tel" required placeholder="07XX XXX XXX" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
+
+        <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="appt-date">Preferred date</label>
+        <input id="appt-date" type="date" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-6 focus:outline-beige" />
+
+        <button type="submit" class="w-full rounded-full bg-gradient-to-r from-peach to-beige font-sans text-sm tracking-[0.22em] uppercase py-4 hover:opacity-90 transition">
+          Request Appointment
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-navy text-white pt-16 pb-10">
+    <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div>
+        <span class="text-2xl font-semibold">Bride &amp; Tribe</span>
+        <p class="font-sans font-light text-sm text-white/80 mt-4">
+          A boutique bridal experience in Nairobi. Designer wedding gowns,
+          formal attire, and a team that finds the one with you.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-4">Contact</h4>
+        <ul class="font-sans font-light text-sm text-white/80 space-y-2">
+          <li>(0712) 345 678</li>
+          <li>hello@brideandtribe.co.ke</li>
+          <li>Nairobi, Kenya</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-4">Store Hours</h4>
+        <ul class="font-sans font-light text-sm text-white/80 space-y-2">
+          <li>Mon 10:00 – 5:00</li>
+          <li>Tue Closed</li>
+          <li>Wed – Sat 10:00 – 5:00</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-4">Information</h4>
+        <ul class="font-sans font-light text-sm text-white/80 space-y-2">
+          <li><a href="#appointment" class="hover:text-peach">Appointments</a></li>
+          <li><a href="#brides" class="hover:text-peach">Our Brides</a></li>
+          <li><a href="#dresses" class="hover:text-peach">Collections</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 mt-12 pt-6 border-t border-white/15 font-sans text-xs text-white/60 flex flex-wrap justify-between gap-2">
+      <span>&copy; 2026 Bride and Tribe. All rights reserved.</span>
+      <span>Lipa na M-Pesa accepted</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
