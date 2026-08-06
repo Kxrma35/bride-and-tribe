@@ -185,6 +185,84 @@
     </div>
   </footer>
 
+  <!-- Modal backdrop (shared) -->
+<div id="modal-backdrop" class="hidden fixed inset-0 z-50 bg-navy/50 flex items-center justify-center p-4">
+
+  <!-- Dress detail + payment -->
+  <div id="dress-modal" class="hidden bg-white rounded-lg max-w-lg w-full p-8 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-start mb-1">
+      <p id="dm-designer" class="font-sans text-xs tracking-[0.28em] uppercase text-beige"></p>
+      <button class="modal-close text-2xl leading-none" aria-label="Close">&times;</button>
+    </div>
+    <h3 id="dm-name" class="text-3xl"></h3>
+    <p id="dm-desc" class="font-sans font-light text-sm text-navy/80 mt-3"></p>
+    <p id="dm-price" class="font-sans text-xl mt-4"></p>
+
+    <div class="bg-peachsoft rounded p-5 mt-6">
+      <h4 class="text-lg mb-3">Reserve with M-Pesa</h4>
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <button id="opt-deposit" class="pay-opt border-2 border-navy rounded p-3 text-left font-sans">
+          <span id="dm-deposit" class="block font-medium"></span>
+          <span class="text-xs text-gray-500">30% deposit</span>
+        </button>
+        <button id="opt-full" class="pay-opt border-2 border-beige rounded p-3 text-left font-sans">
+          <span id="dm-full" class="block font-medium"></span>
+          <span class="text-xs text-gray-500">Pay in full</span>
+        </button>
+      </div>
+      <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="pay-phone">M-Pesa phone number</label>
+      <input id="pay-phone" type="tel" placeholder="07XX XXX XXX"
+             class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
+      <button id="pay-btn" class="w-full rounded-full bg-gradient-to-r from-peach to-beige font-sans text-sm tracking-[0.22em] uppercase py-3.5 hover:opacity-90 transition">
+        Send Payment Request
+      </button>
+      <p id="pay-error" class="hidden font-sans text-sm bg-red-50 text-red-800 px-4 py-3 mt-3"></p>
+    </div>
+  </div>
+
+  <!-- Payment status -->
+  <div id="status-modal" class="hidden bg-white rounded-lg max-w-sm w-full p-8 text-center">
+    <div id="st-pending">
+      <h3 class="text-2xl mb-3">Check your phone</h3>
+      <p id="st-message" class="font-sans font-light text-sm text-navy/80"></p>
+      <div class="w-11 h-11 mx-auto my-6 rounded-full border-[3px] border-peach border-t-navy animate-spin"></div>
+      <button id="st-cancel" class="font-sans text-sm underline">Cancel</button>
+    </div>
+    <div id="st-paid" class="hidden">
+      <p class="text-5xl mb-3">&#10003;</p>
+      <h3 class="text-2xl mb-3">Payment received</h3>
+      <p class="font-sans font-light text-sm text-navy/80">Your dress is reserved. We will be in touch to arrange your fitting.</p>
+      <button class="modal-close mt-5 rounded-full bg-navy text-white font-sans text-sm tracking-[0.22em] uppercase px-8 py-3">Done</button>
+    </div>
+    <div id="st-failed" class="hidden">
+      <h3 class="text-2xl mb-3">Payment not completed</h3>
+      <p class="font-sans font-light text-sm text-navy/80">The request was cancelled or timed out. No money was taken.</p>
+      <button class="modal-close mt-5 rounded-full bg-gradient-to-r from-peach to-beige font-sans text-sm tracking-[0.22em] uppercase px-8 py-3">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Sign in / register -->
+  <div id="auth-modal" class="hidden bg-white rounded-lg max-w-sm w-full p-8">
+    <div class="flex justify-between items-start mb-4">
+      <h3 id="auth-title" class="text-2xl">Sign In</h3>
+      <button class="modal-close text-2xl leading-none" aria-label="Close">&times;</button>
+    </div>
+    <div id="auth-name-wrap" class="hidden">
+      <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="auth-name">Full name</label>
+      <input id="auth-name" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
+    </div>
+    <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="auth-email">Email</label>
+    <input id="auth-email" type="email" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
+    <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="auth-password">Password</label>
+    <input id="auth-password" type="password" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-5 focus:outline-beige" />
+    <button id="auth-submit" class="w-full rounded-full bg-gradient-to-r from-peach to-beige font-sans text-sm tracking-[0.22em] uppercase py-3.5">Sign In</button>
+    <p id="auth-error" class="hidden font-sans text-sm bg-red-50 text-red-800 px-4 py-3 mt-3"></p>
+    <p class="font-sans text-sm text-center mt-4">
+      <a href="#" id="auth-toggle" class="underline">Need an account? Sign up</a>
+    </p>
+  </div>
+</div>
+
   <script src="js/script.js"></script>
 </body>
 </html>

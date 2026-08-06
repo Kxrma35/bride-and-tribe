@@ -128,3 +128,198 @@ window.addEventListener(
 // ---------- Boot ----------
 
 Promise.allSettled([loadDresses(), loadTestimonials()]).then(attachReveals);
+
+// ==================== Payment flow ====================
+
+let currentDress = null;
+let orderType = "deposit";
+let pollTimer = null;
+let pendingPayIntent = false;
+
+const $ = (id) => document.getElementById(id);
+
+const getToken = () => localStorage.getItem("bt_token");
+
+// ---------- Modal plumbing ----------
+
+function openModal(id) {
+  $("modal-backdrop").classList.remove("hidden");
+  ["dress-modal", "status-modal", "auth-modal"].forEach((m) =>
+    $(m).classList.toggle("hidden", m !== id)
+  );
+}
+
+function closeModals() {
+  $("modal-backdrop").classList.add("hidden");
+  clearInterval(pollTimer);
+}
+
+document.querySelectorAll(".modal-close").forEach((b) =>
+  b.addEventListener("click", closeModals)
+);
+$("modal-backdrop").addEventListener("click", (e) => {
+  if (e.target === $("modal-backdrop")) closeModals();
+});
+
+// ---------- Dress detail ----------
+
+$("dress-grid").addEventListener("click", async (e) => {
+  const card = e.target.closest("[data-dress-id]");
+  if (!card) return;
+  e.preventDefault();
+  const res = await fetch(`${API}/dresses/${card.dataset.dressId}`);
+  const data = await res.json();
+  currentDress = data.dress;
+
+  $("dm-designer").textContent = `${currentDress.designer} · Style ${currentDress.style_code}`;
+  $("dm-name").textContent = currentDress.name;
+  $("dm-desc").textContent = currentDress.description;
+  $("dm-price").textContent = fmtKes(currentDress.price_kes);
+  $("dm-deposit").textContent = fmtKes(Math.ceil(currentDress.price_kes * 0.3));
+  $("dm-full").textContent = fmtKes(currentDress.price_kes);
+  $("pay-error").classList.add("hidden");
+  selectOption("deposit");
+  openModal("dress-modal");
+});
+
+function selectOption(type) {
+  orderType = type;
+  $("opt-deposit").className = $("opt-deposit").className.replace(
+    type === "deposit" ? "border-beige" : "border-navy",
+    type === "deposit" ? "border-navy" : "border-beige"
+  );
+  $("opt-full").className = $("opt-full").className.replace(
+    type === "full" ? "border-beige" : "border-navy",
+    type === "full" ? "border-navy" : "border-beige"
+  );
+}
+$("opt-deposit").addEventListener("click", () => selectOption("deposit"));
+$("opt-full").addEventListener("click", () => selectOption("full"));
+
+// ---------- Auth ----------
+
+let authMode = "login";
+
+function showAuth(mode) {
+  authMode = mode;
+  $("auth-title").textContent = mode === "login" ? "Sign In" : "Create Account";
+  $("auth-submit").textContent = mode === "login" ? "Sign In" : "Sign Up";
+  $("auth-toggle").textContent =
+    mode === "login" ? "Need an account? Sign up" : "Already have an account? Sign in";
+  $("auth-name-wrap").classList.toggle("hidden", mode === "login");
+  $("auth-error").classList.add("hidden");
+  openModal("auth-modal");
+}
+
+$("auth-toggle").addEventListener("click", (e) => {
+  e.preventDefault();
+  showAuth(authMode === "login" ? "register" : "login");
+});
+
+$("auth-submit").addEventListener("click", async () => {
+  const body = {
+    email: $("auth-email").value.trim(),
+    password: $("auth-password").value,
+  };
+  if (authMode === "register") body.name = $("auth-name").value.trim();
+
+  try {
+    const res = await fetch(`${API}/auth/${authMode}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Something went wrong");
+    localStorage.setItem("bt_token", data.token);
+    if (pendingPayIntent && currentDress) {
+      pendingPayIntent = false;
+      openModal("dress-modal");
+      startPayment();
+    } else {
+      closeModals();
+    }
+  } catch (err) {
+    $("auth-error").textContent = err.message;
+    $("auth-error").classList.remove("hidden");
+  }
+});
+
+// ---------- Payment ----------
+
+$("pay-btn").addEventListener("click", () => {
+  if (!getToken()) {
+    pendingPayIntent = true;
+    showAuth("login");
+    return;
+  }
+  startPayment();
+});
+
+async function startPayment() {
+  const phone = $("pay-phone").value.trim();
+  const errBox = $("pay-error");
+  errBox.classList.add("hidden");
+  if (!phone) {
+    errBox.textContent = "Enter the M-Pesa phone number to bill";
+    errBox.classList.remove("hidden");
+    return;
+  }
+
+  $("pay-btn").disabled = true;
+  try {
+    const res = await fetch(`${API}/mpesa/pay`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ dressId: currentDress.id, phone, orderType }),
+    });
+    const data = await res.json();
+    if (res.status === 401) {
+      pendingPayIntent = true;
+      showAuth("login");
+      return;
+    }
+    if (!res.ok) throw new Error(data.error || "Payment could not be started");
+
+    $("st-message").textContent =
+      `We sent an M-Pesa request for ${fmtKes(data.amount)} to ${phone}. ` +
+      `Enter your PIN on the prompt to complete payment.`;
+    showStatus("pending");
+    openModal("status-modal");
+    pollStatus(data.orderId);
+  } catch (err) {
+    errBox.textContent = err.message;
+    errBox.classList.remove("hidden");
+  } finally {
+    $("pay-btn").disabled = false;
+  }
+}
+
+function showStatus(state) {
+  ["pending", "paid", "failed"].forEach((s) =>
+    $(`st-${s}`).classList.toggle("hidden", s !== state)
+  );
+}
+
+function pollStatus(orderId) {
+  clearInterval(pollTimer);
+  pollTimer = setInterval(async () => {
+    try {
+      const res = await fetch(`${API}/mpesa/status/${orderId}`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+      const data = await res.json();
+      if (data.order && data.order.status !== "pending") {
+        clearInterval(pollTimer);
+        showStatus(data.order.status);
+      }
+    } catch {
+      /* keep polling */
+    }
+  }, 4000);
+}
+
+$("st-cancel").addEventListener("click", closeModals);
