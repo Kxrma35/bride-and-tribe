@@ -1,0 +1,7 @@
+requirements.txt
+.venv
+.vscode
+.env
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
