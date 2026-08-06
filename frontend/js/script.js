@@ -7,12 +7,14 @@ const fmtKes = (n) =>
     maximumFractionDigits: 0,
   }).format(n);
 
-// Mobile menu toggle
+// ---------- Mobile menu ----------
+
 document.getElementById("menu-btn").addEventListener("click", () => {
   document.getElementById("mobile-menu").classList.toggle("hidden");
 });
 
-// Load dresses
+// ---------- Data loading ----------
+
 async function loadDresses() {
   try {
     const res = await fetch(`${API}/dresses`);
@@ -39,7 +41,6 @@ async function loadDresses() {
   }
 }
 
-// Load testimonials
 async function loadTestimonials() {
   try {
     const res = await fetch(`${API}/testimonials`);
@@ -58,7 +59,8 @@ async function loadTestimonials() {
   }
 }
 
-// Appointment form
+// ---------- Appointment form ----------
+
 document.getElementById("appointment-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const success = document.getElementById("appt-success");
@@ -86,5 +88,43 @@ document.getElementById("appointment-form").addEventListener("submit", async (e)
   }
 });
 
-loadDresses();
-loadTestimonials();
+// ---------- Scroll reveal animations ----------
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target); // animate once, then stop watching
+      }
+    }
+  },
+  { threshold: 0.15 }
+);
+
+function attachReveals() {
+  document
+    .querySelectorAll("section > div, #dress-grid > a, #testimonial-list > blockquote")
+    .forEach((el, i) => {
+      el.classList.add("reveal");
+      el.style.transitionDelay = `${Math.min(i % 4, 3) * 90}ms`; // stagger within rows
+      observer.observe(el);
+    });
+}
+
+// ---------- Hero parallax ----------
+
+const heroInner = document.querySelector("section .max-w-6xl");
+window.addEventListener(
+  "scroll",
+  () => {
+    if (window.scrollY < 900) {
+      heroInner.style.transform = `translateY(${window.scrollY * 0.18}px)`;
+    }
+  },
+  { passive: true }
+);
+
+// ---------- Boot ----------
+
+Promise.allSettled([loadDresses(), loadTestimonials()]).then(attachReveals);
