@@ -259,6 +259,82 @@ def my_orders():
     db.close()
     return jsonify({"orders": [dict(r) for r in rows]})
 
+# ---------- Appointment bookings (KES 5,000 reservation) ----------
+
+BOOKING_FEE_KES = 5000
+
+
+@app.route("/api/bookings/pay", methods=["POST"])
+def booking_pay():
+    data = request.get_json(silent=True) or {}
+    name = (data.get("name") or "").strip()
+    phone = (data.get("phone") or "").strip()
+    mpesa_phone = (data.get("mpesaPhone") or phone).strip()
+    if not name or not phone:
+        return jsonify({"error": "Name and phone number are required"}), 400
+
+    user = current_user()
+    db = get_db()
+    try:
+        cur = db.execute(
+            """INSERT INTO appointments (name, phone, email, preferred_date, time_slot, notes)
+               VALUES (?,?,?,?,?,?)""",
+            (name, phone, data.get("email"), data.get("date"), data.get("time"), data.get("notes")),
+        )
+        appointment_id = cur.lastrowid
+        cur = db.execute(
+            """INSERT INTO orders (user_id, appointment_id, amount_kes, order_type, phone)
+               VALUES (?,?,?,?,?)""",
+            (user["id"] if user else None, appointment_id, BOOKING_FEE_KES, "booking", mpesa_phone),
+        )
+        db.commit()
+        order_id = cur.lastrowid
+
+        result = mpesa.stk_push(mpesa_phone, BOOKING_FEE_KES, f"BT-A{order_id}")
+        db.execute(
+            "UPDATE orders SET checkout_request_id = ? WHERE id = ?",
+            (result["CheckoutRequestID"], order_id),
+        )
+        db.commit()
+        return jsonify({"orderId": order_id, "amount": BOOKING_FEE_KES})
+    except (ValueError, RuntimeError) as e:
+        return jsonify({"error": str(e)}), 502
+    finally:
+        db.close()
+
+
+@app.route("/api/bookings/status/<int:order_id>")
+def booking_status(order_id):
+    db = get_db()
+    order = db.execute(
+        "SELECT * FROM orders WHERE id = ? AND order_type = 'booking'", (order_id,)
+    ).fetchone()
+    if not order:
+        db.close()
+        return jsonify({"error": "Booking not found"}), 404
+
+    status = order["status"]
+    if status == "pending" and order["checkout_request_id"]:
+        try:
+            q = mpesa.stk_query(order["checkout_request_id"])
+            code = str(q.get("ResultCode", ""))
+            if code == "0":
+                status = "paid"
+            elif code and code != "500.001.1001":
+                status = "failed"
+            if status != "pending":
+                db.execute("UPDATE orders SET status = ? WHERE id = ?", (status, order_id))
+                if status == "paid":
+                    db.execute(
+                        "UPDATE appointments SET status = 'confirmed' WHERE id = ?",
+                        (order["appointment_id"],),
+                    )
+                db.commit()
+        except Exception:
+            pass
+    db.close()
+    return jsonify({"order": {"id": order_id, "status": status, "amount_kes": order["amount_kes"]}})
+
 
 init_db()
 if __name__ == "__main__":

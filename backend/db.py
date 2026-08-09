@@ -35,8 +35,9 @@ CREATE TABLE IF NOT EXISTS dresses (
 );
 CREATE TABLE IF NOT EXISTS orders (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL REFERENCES users(id),
-    dress_id INTEGER NOT NULL REFERENCES dresses(id),
+    user_id INTEGER REFERENCES users(id),
+    dress_id INTEGER REFERENCES dresses(id),
+    appointment_id INTEGER REFERENCES appointments(id),
     amount_kes INTEGER NOT NULL,
     order_type TEXT NOT NULL DEFAULT 'deposit',
     status TEXT NOT NULL DEFAULT 'pending',
@@ -51,7 +52,9 @@ CREATE TABLE IF NOT EXISTS appointments (
     phone TEXT NOT NULL,
     email TEXT,
     preferred_date TEXT,
+    time_slot TEXT,
     notes TEXT,
+    status TEXT DEFAULT 'unpaid',
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE IF NOT EXISTS testimonials (
