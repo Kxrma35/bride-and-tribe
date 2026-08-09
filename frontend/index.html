@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bride and Tribe — Bridal Boutique, Nairobi</title>
-  <meta name="description" content="Bride and Tribe bridal boutique. Designer wedding dresses and formal attire in Nairobi. Book an appointment and find the one." />
+  <title>Bride and Tribe — Bridal Atelier, Nairobi</title>
+  <meta name="description" content="Nairobi's premier bridal atelier, founded by four sisters. Handpicked gowns from the world's finest ateliers. Book a private viewing." />
 
-
-  <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -18,14 +17,20 @@
       theme: {
         extend: {
           colors: {
-            navy: "#01315C",
-            beige: "#DDB9A2",
-            peach: "#FADCCB",
-            peachsoft: "#FDEEE4",
+            cream: "#FAF5EE",
+            charcoal: "#1E1712",
+            gold: "#C09A48",
+            goldlight: "#E5D09A",
+            terracotta: "#B85638",
+            teal: "#2D6A5C",
+            champagne: "#EDE0C4",
+            ink: "#281E14",
+            mist: "#F5EEE5",
+            obsidian: "#100D09",
+            footer: "#0D1F1B",
           },
           fontFamily: {
-            serif: ['"Playfair Display"', "Georgia", "serif"],
-            sans: ["Jost", "sans-serif"],
+            sans: ["Inter", "system-ui", "sans-serif"],
           },
         },
       },
@@ -33,283 +38,391 @@
   </script>
 </head>
 
-<body class="font-serif text-navy bg-white">
+<body class="font-sans bg-cream text-charcoal overflow-x-hidden antialiased">
 
-  <!-- Header -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-peachsoft">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-6">
-      <a href="index.html" class="flex flex-col items-center leading-none">
-        <span class="text-2xl font-semibold tracking-wide">Bride &amp; Tribe</span>
-        <span class="font-sans text-[10px] tracking-[0.5em] uppercase text-beige mt-1">Bridal Boutique</span>
+  <!-- ============ Navbar ============ -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-cream/90 backdrop-blur-lg border-b border-gold/15">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 h-[68px] flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-full overflow-hidden bg-white ring-[1.5px] ring-gold/35 shrink-0">
+          <img src="images/dresses/logo.jpeg" alt="Bride and Tribe logo" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <span class="block text-lg font-bold tracking-wide leading-tight">Bride &amp; Tribe</span>
+          <span class="block text-[10px] tracking-[0.22em] text-gold mt-0.5">BRIDAL ATELIER</span>
+        </div>
       </a>
 
-      <nav class="hidden md:flex items-center gap-7 font-sans text-sm tracking-widest uppercase">
-        <a href="#dresses" class="border-b-2 border-transparent hover:border-beige py-1">Wedding Dresses</a>
-        <a href="#brides" class="border-b-2 border-transparent hover:border-beige py-1">Our Brides</a>
-        <a href="#appointment" class="rounded-full bg-gradient-to-r from-peach to-beige px-6 py-2.5 text-navy hover:opacity-90 transition">Request Appointment</a>
+      <nav class="hidden md:flex gap-9 items-center">
+        <a href="#our-story" class="text-[13px] font-medium tracking-wide text-ink/75 hover:text-ink transition">Our Story</a>
+        <a href="#collections" class="text-[13px] font-medium tracking-wide text-ink/75 hover:text-ink transition">Collections</a>
+        <a href="#craftsmanship" class="text-[13px] font-medium tracking-wide text-ink/75 hover:text-ink transition">Craftsmanship</a>
+        <a href="#contact" class="text-[13px] font-medium tracking-wide text-ink/75 hover:text-ink transition">Contact</a>
       </nav>
 
-      <div class="flex items-center gap-4 font-sans text-sm">
-        <span class="hidden lg:inline tracking-wide">(0712) 345 678</span>
-        <button id="menu-btn" class="md:hidden text-2xl" aria-label="Toggle menu">&#9776;</button>
+      <div class="flex items-center gap-3">
+        <button data-auth="signin" class="hidden sm:block text-xs font-medium tracking-[0.08em] px-4 py-2 rounded-sm border border-gold/40 hover:border-gold hover:text-gold transition">
+          Sign In
+        </button>
+        <span id="user-chip" class="hidden text-xs font-medium text-gold"></span>
+        <button data-book class="text-xs font-semibold tracking-[0.1em] px-5 py-2.5 rounded-sm bg-charcoal text-champagne hover:bg-terracotta transition">
+          Book Appointment
+        </button>
       </div>
     </div>
-
-    <!-- Mobile menu -->
-    <nav id="mobile-menu" class="hidden md:hidden flex-col gap-4 px-6 pb-6 font-sans text-sm tracking-widest uppercase">
-      <a href="#dresses" class="block py-2">Wedding Dresses</a>
-      <a href="#brides" class="block py-2">Our Brides</a>
-      <a href="#appointment" class="block py-2">Request Appointment</a>
-    </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="relative min-h-[75vh] flex items-center bg-gradient-to-br from-peachsoft via-peach to-beige overflow-hidden">
-    <div class="max-w-6xl mx-auto px-4 py-24 relative">
-      <p class="font-sans text-xs tracking-[0.32em] uppercase text-navy/70 mb-5">Timeless beauty, unforgettable moments</p>
-      <h1 class="text-5xl md:text-7xl lg:text-8xl leading-tight">Find the <em class="font-normal">Perfect Dress</em></h1>
-      <p class="font-sans font-light text-lg max-w-xl mt-6 mb-9 text-navy/80">
-        Visit Bride and Tribe for the ultimate wedding dress shopping experience
-        and view our extensive collection of designer wedding gowns and formal attire.
+  <!-- ============ Hero ============ -->
+  <section id="hero" class="min-h-screen grid lg:grid-cols-2 pt-[68px]">
+    <div class="flex flex-col justify-center px-6 py-16 lg:pl-20 lg:pr-16">
+      <p class="text-[11px] tracking-[0.22em] font-semibold text-gold uppercase mb-7">Nairobi's Premier Bridal Atelier</p>
+      <h1 class="text-[42px] lg:text-7xl font-light leading-[1.08] mb-7">
+        Where Every<br />
+        <span class="font-bold text-terracotta">Bride</span> Finds<br />
+        Her Forever<br />Dress.
+      </h1>
+      <p class="text-base leading-[1.75] text-ink/70 max-w-sm mb-11">
+        Founded by four sisters who believed that every woman deserves to feel
+        extraordinary on the most important day of her life. Handpicked gowns
+        from the world's finest ateliers, brought to you with love.
       </p>
-      <a href="#appointment" class="inline-block rounded-full bg-navy text-white font-sans text-sm tracking-[0.22em] uppercase px-9 py-4 hover:-translate-y-0.5 hover:shadow-xl transition">Request Appointment</a>
-    </div>
-  </section>
-
-  <!-- Dresses -->
-  <section id="dresses" class="py-24">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center max-w-xl mx-auto mb-14">
-        <p class="font-sans text-xs tracking-[0.32em] uppercase text-beige mb-3">Let's find the one</p>
-        <h2 class="text-4xl md:text-5xl">Wedding Dresses</h2>
-        <p class="font-sans font-light mt-4 text-navy/80">
-          Silhouettes for every bride — fitted mermaids, romantic ballgowns,
-          and bohemian sheaths from designers we love.
-        </p>
-      </div>
-      <div id="dress-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- filled by script.js -->
-      </div>
-      <p id="dress-error" class="hidden font-sans text-center text-navy/60 mt-8">
-        Could not load dresses. Is the API running on port 5000?
-      </p>
-    </div>
-  </section>
-
-  <!-- Fabric stories -->
-<section id="stories" class="py-24 bg-navy text-white overflow-hidden">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="text-center max-w-xl mx-auto mb-14">
-      <p class="font-sans text-xs tracking-[0.32em] uppercase text-beige mb-3">Our fabrics</p>
-      <h2 class="text-4xl md:text-5xl">Every Dress Has a Story</h2>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-12 items-start">
-      <!-- 3D canvas: sticky so it stays while panels scroll -->
-      <div class="md:sticky md:top-28 h-[420px]">
-        <canvas id="fabric-canvas" class="w-full h-full"></canvas>
-      </div>
-
-      <!-- Story panels -->
-      <div id="story-panels" class="space-y-[40vh] py-[20vh]">
-        <div class="story-panel" data-color="#FADCCB">
-          <p class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-2">Imani &middot; Lillian West</p>
-          <h3 class="text-3xl mb-3">Handwoven Lace from Turkey</h3>
-          <p class="font-sans font-light text-white/80">
-            The vintage cotton lace on Imani's bodice is handwoven in Izmir,
-            where lacemaking has passed between generations for two centuries.
-          </p>
-        </div>
-        <div class="story-panel" data-color="#DDB9A2">
-          <p class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-2">Zawadi &middot; Allure Bridals</p>
-          <h3 class="text-3xl mb-3">Silk Mikado from Italy</h3>
-          <p class="font-sans font-light text-white/80">
-            Zawadi's structured ballgown skirt is cut from Como silk mikado,
-            prized for holding its sculptural shape through a full day of dancing.
-          </p>
-        </div>
-        <div class="story-panel" data-color="#B7C9E2">
-          <p class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-2">Tulia &middot; Bride and Tribe Atelier</p>
-          <h3 class="text-3xl mb-3">Finished in Nairobi</h3>
-          <p class="font-sans font-light text-white/80">
-            Every atelier gown is cut, fitted, and hand-finished in our Nairobi
-            workshop, tailored to the bride who will wear it.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- Testimonials -->
-  <section id="brides" class="py-24 bg-peachsoft">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center max-w-xl mx-auto mb-14">
-        <p class="font-sans text-xs tracking-[0.32em] uppercase text-beige mb-3">Our brides</p>
-        <h2 class="text-4xl md:text-5xl">Bride &amp; Tribe Brides</h2>
-        <p class="font-sans font-light mt-4 text-navy/80">We are so fortunate to be part of so many beautiful wedding stories.</p>
-      </div>
-      <div id="testimonial-list" class="max-w-2xl mx-auto space-y-8">
-        <!-- filled by script.js -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Appointment -->
-  <section id="appointment" class="py-24">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-      <div class="rounded-lg bg-gradient-to-br from-peach to-beige p-10 lg:p-12">
-        <h2 class="text-4xl mb-5">Request an Appointment</h2>
-        <p class="font-sans font-light text-navy/85">
-          Bridal appointments are private and unhurried — you and your tribe get
-          the boutique, a dedicated stylist, and gowns pulled just for you.
-          We confirm every appointment by phone.
-        </p>
-      </div>
-
-      <form id="appointment-form" class="border border-navy p-8 lg:p-10">
-        <div id="appt-success" class="hidden font-sans text-sm bg-green-50 text-green-800 px-4 py-3 mb-4">
-          Thank you! We will call you to confirm your appointment.
-        </div>
-        <div id="appt-error" class="hidden font-sans text-sm bg-red-50 text-red-800 px-4 py-3 mb-4"></div>
-
-        <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="appt-name">Full name</label>
-        <input id="appt-name" required class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
-
-        <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="appt-phone">Phone</label>
-        <input id="appt-phone" type="tel" required placeholder="07XX XXX XXX" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
-
-        <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="appt-date">Preferred date</label>
-        <input id="appt-date" type="date" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-6 focus:outline-beige" />
-
-        <button type="submit" class="w-full rounded-full bg-gradient-to-r from-peach to-beige font-sans text-sm tracking-[0.22em] uppercase py-4 hover:opacity-90 transition">
-          Request Appointment
+      <div class="flex gap-4 items-center flex-wrap">
+        <button data-book class="bg-charcoal text-champagne px-9 py-4 text-[13px] font-semibold tracking-[0.1em] rounded-sm hover:bg-terracotta transition">
+          Book a Private Viewing
         </button>
-      </form>
+        <a href="#our-story" class="text-[13px] text-gold tracking-wide flex items-center gap-2">Our Story <span class="text-lg">&darr;</span></a>
+      </div>
+
+      <div class="flex gap-12 mt-16 pt-10 border-t border-gold/20">
+        <div><div class="text-3xl font-light">4</div><div class="text-[11px] tracking-[0.12em] text-gold uppercase mt-1">Sisters &amp; Founders</div></div>
+        <div><div class="text-3xl font-light">200+</div><div class="text-[11px] tracking-[0.12em] text-gold uppercase mt-1">Brides Dressed</div></div>
+        <div><div class="text-3xl font-light">8</div><div class="text-[11px] tracking-[0.12em] text-gold uppercase mt-1">Years of Excellence</div></div>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden bg-champagne grain-overlay min-h-[60vh]">
+      <img src="images/dresses/bev.jpeg" alt="Bride glancing over her shoulder in a lace mermaid gown with a long train" class="w-full h-full object-cover object-top" />
+      <div class="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-cream/60 to-transparent"></div>
+      <div class="absolute bottom-10 right-10 bg-obsidian/85 backdrop-blur px-5 py-3 rounded-sm">
+        <div class="text-[10px] tracking-[0.18em] text-gold uppercase">New Arrivals</div>
+        <div class="text-white font-light mt-1">World Collection 2025</div>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-navy text-white pt-16 pb-10">
-    <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-      <div>
-        <span class="text-2xl font-semibold">Bride &amp; Tribe</span>
-        <p class="font-sans font-light text-sm text-white/80 mt-4">
-          A boutique bridal experience in Nairobi. Designer wedding gowns,
-          formal attire, and a team that finds the one with you.
-        </p>
-      </div>
-      <div>
-        <h4 class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-4">Contact</h4>
-        <ul class="font-sans font-light text-sm text-white/80 space-y-2">
-          <li>(0712) 345 678</li>
-          <li>hello@brideandtribe.co.ke</li>
-          <li>Nairobi, Kenya</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-4">Store Hours</h4>
-        <ul class="font-sans font-light text-sm text-white/80 space-y-2">
-          <li>Mon 10:00 – 5:00</li>
-          <li>Tue Closed</li>
-          <li>Wed – Sat 10:00 – 5:00</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-4">Information</h4>
-        <ul class="font-sans font-light text-sm text-white/80 space-y-2">
-          <li><a href="#appointment" class="hover:text-peach">Appointments</a></li>
-          <li><a href="#brides" class="hover:text-peach">Our Brides</a></li>
-          <li><a href="#dresses" class="hover:text-peach">Collections</a></li>
-        </ul>
+  <!-- ============ Our Story ============ -->
+  <section id="our-story" class="bg-teal text-white pt-28">
+    <div class="max-w-7xl mx-auto px-6 lg:px-20 pb-20">
+      <p class="text-[11px] tracking-[0.22em] text-gold uppercase mb-5">The Bride &amp; Tribe Story</p>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end">
+        <h2 class="text-4xl lg:text-6xl font-normal leading-[1.1]">
+          Four Sisters.<br />
+          <span class="text-gold font-bold">One Unbreakable</span><br />
+          Promise.
+        </h2>
+        <div class="space-y-6 text-white/65 leading-[1.85]">
+          <p>In 2016, Abigael, Beverlyn, Belinda, and June pooled their savings, their skills, and their shared obsession with bridal fashion to open a single-room boutique in Nairobi's Karen neighborhood. No investors. No safety net. Just four sisters who refused to quit on each other.</p>
+          <p>What began as a dream became a destination — where brides from across East Africa come not just for a dress, but for the kind of care that only a family business can give. To this day, every appointment is handled by one of the sisters personally.</p>
+        </div>
       </div>
     </div>
-    <div class="max-w-6xl mx-auto px-4 mt-12 pt-6 border-t border-white/15 font-sans text-xs text-white/60 flex flex-wrap justify-between gap-2">
-      <span>&copy; 2026 Bride and Tribe. All rights reserved.</span>
-      <span>Lipa na M-Pesa accepted</span>
+
+    <div class="relative h-[520px] overflow-hidden">
+      <img src="images/dresses/sisters.jpeg" alt="The four sisters and founders of Bride and Tribe" class="w-full h-full object-cover" style="object-position: center 30%;" />
+      <div class="absolute inset-0 bg-gradient-to-r from-obsidian/70 via-transparent to-obsidian/70"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-obsidian/40 via-transparent to-obsidian/85"></div>
+      <div class="absolute bottom-14 inset-x-6 lg:inset-x-20">
+        <blockquote class="text-2xl lg:text-4xl font-light max-w-3xl leading-[1.3]">
+          &ldquo;We built this for each other first, and for you second — because love is what makes a business last.&rdquo;
+        </blockquote>
+        <p class="text-[13px] tracking-[0.1em] text-gold mt-4">— The Four Sisters, Founders of Bride &amp; Tribe</p>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-20 py-20 lg:py-28 grid sm:grid-cols-2 lg:grid-cols-4">
+      <div class="p-9 lg:p-12 bg-white/[0.04] border-white/10 lg:border-r"><div class="w-10 h-px bg-gold mb-7"></div><div class="text-2xl mb-1.5">Abigael</div><div class="text-[11px] tracking-[0.16em] text-gold uppercase mb-5">Creative Director</div><p class="text-sm text-white/50 leading-relaxed">"Every stitch tells a story."</p></div>
+      <div class="p-9 lg:p-12 border-white/10 lg:border-r"><div class="w-10 h-px bg-gold mb-7"></div><div class="text-2xl mb-1.5">Beverlyn</div><div class="text-[11px] tracking-[0.16em] text-gold uppercase mb-5">Head of Curation</div><p class="text-sm text-white/50 leading-relaxed">"Beauty lives in the details."</p></div>
+      <div class="p-9 lg:p-12 bg-white/[0.04] border-white/10 lg:border-r"><div class="w-10 h-px bg-gold mb-7"></div><div class="text-2xl mb-1.5">Belinda</div><div class="text-[11px] tracking-[0.16em] text-gold uppercase mb-5">Client Experience</div><p class="text-sm text-white/50 leading-relaxed">"Your joy is our purpose."</p></div>
+      <div class="p-9 lg:p-12"><div class="w-10 h-px bg-gold mb-7"></div><div class="text-2xl mb-1.5">June</div><div class="text-[11px] tracking-[0.16em] text-gold uppercase mb-5">Operations &amp; Growth</div><p class="text-sm text-white/50 leading-relaxed">"Family built this, family sustains it."</p></div>
+    </div>
+  </section>
+
+  <!-- ============ Showcase ============ -->
+  <section id="collections" class="bg-obsidian py-28 lg:py-36 relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(192,154,72,0.06) 0%, transparent 70%);"></div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-20 relative">
+      <div class="text-center mb-20">
+        <p class="text-[11px] tracking-[0.22em] text-gold uppercase mb-4">World Collection 2025</p>
+        <h2 class="text-3xl lg:text-6xl text-white leading-[1.1] max-w-2xl mx-auto">
+          Gowns That Speak<br /><span class="font-bold text-gold">Before You Do.</span>
+        </h2>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-10 lg:gap-14 items-center">
+        <div class="hidden lg:flex flex-col gap-10">
+          <div><div class="text-[10px] tracking-[0.2em] text-gold uppercase mb-1.5">Fabric</div><div class="text-xl font-light text-white">French Lace &amp; Tulle</div></div>
+          <div><div class="text-[10px] tracking-[0.2em] text-gold uppercase mb-1.5">Origin</div><div class="text-xl font-light text-white">Sourced Worldwide</div></div>
+          <div><div class="text-[10px] tracking-[0.2em] text-gold uppercase mb-1.5">Embellishment</div><div class="text-xl font-light text-white">Hand-beaded Bodice</div></div>
+        </div>
+
+        <div class="justify-self-center">
+          <div id="tilt-zone" class="[perspective:1200px]">
+            <div id="tilt-card" class="tilt-card w-[300px] h-[460px] lg:w-[340px] lg:h-[520px] rounded overflow-hidden relative">
+              <img src="images/dresses/june.jpeg" alt="Bride in an off-shoulder lace mermaid gown with cathedral train from the World Collection" class="w-full h-full object-cover object-top select-none pointer-events-none" />
+              <div class="gloss-highlight absolute inset-0 pointer-events-none"></div>
+              <div class="absolute bottom-0 inset-x-0 h-44 bg-gradient-to-t from-obsidian/90 to-transparent flex flex-col justify-end px-7 pb-7">
+                <div class="text-[10px] tracking-[0.2em] text-gold uppercase mb-1.5">The Sultanah</div>
+                <div class="text-[22px] text-white font-light">Gown No. 047</div>
+              </div>
+            </div>
+          </div>
+          <p class="text-center text-[11px] tracking-[0.12em] text-white/25 uppercase mt-5">Move cursor to explore</p>
+        </div>
+
+        <div class="hidden lg:flex flex-col gap-10 text-right">
+          <div><div class="text-[10px] tracking-[0.2em] text-gold uppercase mb-1.5">Silhouette</div><div class="text-xl font-light text-white">Off-shoulder Mermaid</div></div>
+          <div><div class="text-[10px] tracking-[0.2em] text-gold uppercase mb-1.5">Train</div><div class="text-xl font-light text-white">Cathedral Train</div></div>
+          <div><div class="text-[10px] tracking-[0.2em] text-gold uppercase mb-1.5">Lead Time</div><div class="text-xl font-light text-white">6&ndash;8 Weeks</div></div>
+        </div>
+      </div>
+
+      <p class="text-center text-[15px] text-white/50 max-w-xl mx-auto mt-16 leading-[1.75]">
+        Each gown in our World Collection is personally selected by our founders
+        during sourcing trips to the globe's most celebrated bridal ateliers.
+        No two dresses are imported in large volumes — we carry exclusivity as a standard.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ Craftsmanship ============ -->
+  <section id="craftsmanship" class="bg-cream py-28 lg:py-36">
+    <div class="max-w-7xl mx-auto px-6 lg:px-20 grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div class="relative">
+        <div class="relative rounded-sm overflow-hidden h-[420px] lg:h-[600px] bg-champagne">
+          <img src="images/dresses/abby.jpeg" alt="Two brides in off-shoulder sequined mermaid gowns on a garden lawn" class="w-full h-full object-cover object-top" />
+        </div>
+        <div class="absolute -bottom-10 -right-4 lg:-bottom-12 lg:-right-12 w-44 h-60 lg:w-56 lg:h-[300px] rounded-sm overflow-hidden bg-champagne border-[6px] border-cream shadow-2xl">
+          <img src="images/dresses/bev.jpeg" alt="Intricate lace back and flowing train of a mermaid gown" class="w-full h-full object-cover object-top" />
+        </div>
+        <div class="absolute top-14 -left-3 lg:-left-6 w-1 h-28 bg-gold"></div>
+      </div>
+
+      <div class="pt-14 lg:pt-0">
+        <p class="text-[11px] tracking-[0.22em] text-gold uppercase mb-6">Sourced from Around the World</p>
+        <h2 class="text-3xl lg:text-5xl leading-[1.1] mb-8">
+          Curated Globally.<br /><span class="font-bold text-terracotta">Cherished</span> Forever.
+        </h2>
+        <p class="text-base leading-[1.85] text-ink/70 mb-5">
+          Our founders travel the world to handpick every gown in our collection —
+          from the fashion capitals of Europe to the finest ateliers across the globe.
+          They inspect each seam, test every fabric for its drape and weight, and
+          reject anything that doesn't meet the Bride &amp; Tribe standard.
+        </p>
+        <p class="text-base leading-[1.85] text-ink/70 mb-12">
+          We believe the most beautiful gowns have no single origin — they come from
+          the best designers the world has to offer. The result is a collection as
+          diverse and extraordinary as the brides who wear them.
+        </p>
+
+        <div class="space-y-5">
+          <div class="flex gap-4 items-start"><span class="mt-0.5 w-[18px] h-[18px] shrink-0 rounded-full border-[1.5px] border-gold flex items-center justify-center"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span></span><span class="text-sm leading-relaxed text-ink">Hand-inspected seams and stitching on every garment</span></div>
+          <div class="flex gap-4 items-start"><span class="mt-0.5 w-[18px] h-[18px] shrink-0 rounded-full border-[1.5px] border-gold flex items-center justify-center"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span></span><span class="text-sm leading-relaxed text-ink">Fabrics sourced from the world's most celebrated design houses</span></div>
+          <div class="flex gap-4 items-start"><span class="mt-0.5 w-[18px] h-[18px] shrink-0 rounded-full border-[1.5px] border-gold flex items-center justify-center"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span></span><span class="text-sm leading-relaxed text-ink">Each gown individually wrapped and climate-stored</span></div>
+          <div class="flex gap-4 items-start"><span class="mt-0.5 w-[18px] h-[18px] shrink-0 rounded-full border-[1.5px] border-gold flex items-center justify-center"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span></span><span class="text-sm leading-relaxed text-ink">Free alterations included with every purchase</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Booking CTA ============ -->
+  <section id="contact" class="bg-terracotta py-28 px-6 lg:px-20 relative overflow-hidden">
+    <div class="max-w-3xl mx-auto text-center relative">
+      <p class="text-[11px] tracking-[0.22em] text-gold uppercase mb-6">Private Appointments Only</p>
+      <h2 class="text-4xl lg:text-6xl text-white leading-[1.1] mb-7">
+        Your Appointment<br /><span class="font-bold text-gold">Awaits.</span>
+      </h2>
+      <p class="text-base text-white/60 leading-[1.75] max-w-lg mx-auto mb-4">
+        Every Bride &amp; Tribe experience begins with a private one-on-one consultation.
+        Try on as many gowns as you need, with champagne and a sister by your side.
+      </p>
+      <p class="text-sm text-gold mb-12">Appointment booking requires a KES 5,000 reservation fee, redeemable against any purchase.</p>
+      <button data-book class="bg-gold text-charcoal px-12 py-[18px] text-[13px] font-bold tracking-[0.12em] uppercase rounded-sm hover:bg-white hover:-translate-y-0.5 transition">
+        Reserve My Appointment
+      </button>
+      <p class="text-xs text-white/30 mt-5">Accepts M-Pesa &middot; Card &amp; PayPal coming soon</p>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="bg-footer text-white/50 px-6 lg:px-20 pt-20 pb-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-12 lg:gap-16 mb-20">
+        <div>
+          <div class="flex items-center gap-3.5 mb-5">
+            <div class="w-[52px] h-[52px] rounded-full overflow-hidden bg-white ring-[1.5px] ring-gold/30 shrink-0">
+              <img src="images/dresses/logo.jpeg" alt="Bride and Tribe logo" class="w-full h-full object-cover" />
+            </div>
+            <div>
+              <div class="text-xl font-bold text-white leading-tight">Bride &amp; Tribe</div>
+              <div class="text-[10px] tracking-[0.22em] text-gold mt-0.5">BRIDAL ATELIER</div>
+            </div>
+          </div>
+          <p class="text-[13px] leading-[1.75] max-w-[260px]">Nairobi's home for luxury bridal gowns, founded by four sisters who put family — and every bride — first.</p>
+          <div class="mt-7 flex gap-3">
+            <button data-auth="signin" class="text-xs px-4 py-2 rounded-sm border border-gold/30 text-gold tracking-wide">Sign In</button>
+            <button data-auth="signup" class="text-xs font-semibold px-4 py-2 rounded-sm bg-gold text-charcoal tracking-wide">Create Account</button>
+          </div>
+        </div>
+        <div>
+          <div class="text-[11px] tracking-[0.18em] text-gold uppercase mb-5">Discover</div>
+          <ul class="space-y-3 text-[13px]">
+            <li><a href="#our-story" class="hover:text-white transition">Our Story</a></li>
+            <li><a href="#collections" class="hover:text-white transition">World Collection</a></li>
+            <li><a href="#craftsmanship" class="hover:text-white transition">Craftsmanship</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-[11px] tracking-[0.18em] text-gold uppercase mb-5">Services</div>
+          <ul class="space-y-3 text-[13px]">
+            <li>Private Appointments</li>
+            <li>Alterations</li>
+            <li>Bridal Styling</li>
+            <li>Group Bookings</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-[11px] tracking-[0.18em] text-gold uppercase mb-5">Connect</div>
+          <ul class="space-y-3 text-[13px]">
+            <li>hello@brideandtribe.co.ke</li>
+            <li>+254 700 000 000</li>
+            <li>Karen, Nairobi</li>
+            <li><a href="#" class="hover:text-white transition">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/[0.06] pt-8 flex flex-col sm:flex-row justify-between gap-2 text-xs">
+        <span>&copy; 2026 Bride &amp; Tribe Bridal Atelier. All rights reserved.</span>
+        <span>Made with love by four sisters in Nairobi.</span>
+      </div>
     </div>
   </footer>
 
-  <!-- Modal backdrop (shared) -->
-<div id="modal-backdrop" class="hidden fixed inset-0 z-50 bg-navy/50 flex items-center justify-center p-4">
+  <!-- ============ Modals ============ -->
+  <div id="modal-backdrop" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-5">
+    <div id="backdrop-click" class="absolute inset-0 bg-obsidian/80 backdrop-blur"></div>
 
-  <!-- Dress detail + payment -->
-  <div id="dress-modal" class="hidden bg-white rounded-lg max-w-lg w-full p-8 max-h-[90vh] overflow-y-auto">
-    <div class="flex justify-between items-start mb-1">
-      <p id="dm-designer" class="font-sans text-xs tracking-[0.28em] uppercase text-beige"></p>
-      <button class="modal-close text-2xl leading-none" aria-label="Close">&times;</button>
-    </div>
-    <h3 id="dm-name" class="text-3xl"></h3>
-    <div id="dm-photo" class="hidden aspect-[3/4] max-h-72 mx-auto rounded overflow-hidden mb-4"></div>
-    <p id="dm-desc" class="font-sans font-light text-sm text-navy/80 mt-3"></p>
-    <p id="dm-price" class="font-sans text-xl mt-4"></p>
-
-    <div class="bg-peachsoft rounded p-5 mt-6">
-      <h4 class="text-lg mb-3">Reserve with M-Pesa</h4>
-      <div class="grid grid-cols-2 gap-3 mb-4">
-        <button id="opt-deposit" class="pay-opt border-2 border-navy rounded p-3 text-left font-sans">
-          <span id="dm-deposit" class="block font-medium"></span>
-          <span class="text-xs text-gray-500">30% deposit</span>
-        </button>
-        <button id="opt-full" class="pay-opt border-2 border-beige rounded p-3 text-left font-sans">
-          <span id="dm-full" class="block font-medium"></span>
-          <span class="text-xs text-gray-500">Pay in full</span>
-        </button>
+    <!-- Auth -->
+    <div id="auth-modal" class="hidden relative bg-cream w-full max-w-[480px] rounded overflow-hidden shadow-2xl">
+      <div class="bg-charcoal px-10 pt-8 pb-7 text-center relative">
+        <h3 id="auth-title" class="text-[28px] font-normal text-white">Welcome Back</h3>
+        <p id="auth-sub" class="text-[13px] text-white/50 mt-2">Sign in to manage your appointments.</p>
+        <button class="modal-close absolute top-4 right-5 text-2xl text-white/50 leading-none">&times;</button>
       </div>
-      <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="pay-phone">M-Pesa phone number</label>
-      <input id="pay-phone" type="tel" placeholder="07XX XXX XXX"
-             class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
-      <button id="pay-btn" class="w-full rounded-full bg-gradient-to-r from-peach to-beige font-sans text-sm tracking-[0.22em] uppercase py-3.5 hover:opacity-90 transition">
-        Send Payment Request
-      </button>
-      <p id="pay-error" class="hidden font-sans text-sm bg-red-50 text-red-800 px-4 py-3 mt-3"></p>
+      <div class="p-10">
+        <div id="auth-name-wrap" class="hidden mb-5">
+          <label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="auth-name">Full Name</label>
+          <input id="auth-name" type="text" placeholder="e.g. Wanjiku Kamau" class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold transition" />
+        </div>
+        <div class="mb-5">
+          <label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="auth-email">Email Address</label>
+          <input id="auth-email" type="email" placeholder="hello@example.com" class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold transition" />
+        </div>
+        <div class="mb-6">
+          <label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="auth-password">Password</label>
+          <input id="auth-password" type="password" placeholder="At least 8 characters" class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold transition" />
+        </div>
+        <p id="auth-error" class="hidden text-sm bg-red-50 text-red-800 px-4 py-3 mb-4 rounded-sm"></p>
+        <button id="auth-submit" class="w-full bg-charcoal text-champagne py-[15px] text-[13px] font-semibold tracking-[0.1em] uppercase rounded-sm hover:bg-terracotta transition">Sign In</button>
+        <p class="text-center text-[13px] text-ink/55 mt-6">
+          <span id="auth-switch-label">Don't have an account?</span>
+          <button id="auth-toggle" class="text-gold font-semibold ml-1">Create one</button>
+        </p>
+      </div>
     </div>
-  </div>
 
-  <!-- Payment status -->
-  <div id="status-modal" class="hidden bg-white rounded-lg max-w-sm w-full p-8 text-center">
-    <div id="st-pending">
-      <h3 class="text-2xl mb-3">Check your phone</h3>
-      <p id="st-message" class="font-sans font-light text-sm text-navy/80"></p>
-      <div class="w-11 h-11 mx-auto my-6 rounded-full border-[3px] border-peach border-t-navy animate-spin"></div>
-      <button id="st-cancel" class="font-sans text-sm underline">Cancel</button>
-    </div>
-    <div id="st-paid" class="hidden">
-      <p class="text-5xl mb-3">&#10003;</p>
-      <h3 class="text-2xl mb-3">Payment received</h3>
-      <p class="font-sans font-light text-sm text-navy/80">Your dress is reserved. We will be in touch to arrange your fitting.</p>
-      <button class="modal-close mt-5 rounded-full bg-navy text-white font-sans text-sm tracking-[0.22em] uppercase px-8 py-3">Done</button>
-    </div>
-    <div id="st-failed" class="hidden">
-      <h3 class="text-2xl mb-3">Payment not completed</h3>
-      <p class="font-sans font-light text-sm text-navy/80">The request was cancelled or timed out. No money was taken.</p>
-      <button class="modal-close mt-5 rounded-full bg-gradient-to-r from-peach to-beige font-sans text-sm tracking-[0.22em] uppercase px-8 py-3">Try Again</button>
-    </div>
-  </div>
+    <!-- Booking -->
+    <div id="booking-modal" class="hidden relative bg-cream w-full max-w-[600px] rounded overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="bg-charcoal px-10 py-7 flex justify-between items-center sticky top-0">
+        <div>
+          <div id="bk-step-label" class="text-[10px] tracking-[0.22em] text-gold uppercase">Step 1 of 2 — Details</div>
+          <h3 id="bk-title" class="text-2xl text-white font-normal mt-1.5">Book Your Appointment</h3>
+        </div>
+        <button class="modal-close text-2xl text-white/40 leading-none">&times;</button>
+      </div>
 
-  <!-- Sign in / register -->
-  <div id="auth-modal" class="hidden bg-white rounded-lg max-w-sm w-full p-8">
-    <div class="flex justify-between items-start mb-4">
-      <h3 id="auth-title" class="text-2xl">Sign In</h3>
-      <button class="modal-close text-2xl leading-none" aria-label="Close">&times;</button>
+      <!-- Step: form -->
+      <div id="bk-form" class="p-10">
+        <div class="grid sm:grid-cols-2 gap-4 mb-5">
+          <div><label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="bk-name">Full Name</label><input id="bk-name" type="text" placeholder="Your name" class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold" /></div>
+          <div><label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="bk-email">Email</label><input id="bk-email" type="email" placeholder="your@email.com" class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold" /></div>
+        </div>
+        <div class="mb-5"><label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="bk-phone">Phone Number</label><input id="bk-phone" type="tel" placeholder="07XX XXX XXX" class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold" /></div>
+        <div class="grid sm:grid-cols-2 gap-4 mb-5">
+          <div><label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="bk-date">Preferred Date</label><input id="bk-date" type="date" class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold" /></div>
+          <div><label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="bk-time">Time Slot</label>
+            <select id="bk-time" class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold">
+              <option value="">Select a time</option>
+              <option>10:00 AM</option><option>11:30 AM</option><option>1:00 PM</option><option>2:30 PM</option><option>4:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-5"><label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="bk-notes">Notes (optional)</label><textarea id="bk-notes" rows="3" placeholder="E.g. wedding date, style preferences, group size..." class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold resize-none"></textarea></div>
+        <div class="bg-gold/[0.08] border border-gold/20 rounded-sm px-5 py-4 mb-5 text-[13px] leading-relaxed">
+          <strong>Reservation Fee: KES 5,000</strong><br />
+          <span class="opacity-65">Fully redeemable against any gown purchase. Secures your private appointment slot.</span>
+        </div>
+        <p id="bk-form-error" class="hidden text-sm bg-red-50 text-red-800 px-4 py-3 mb-4 rounded-sm"></p>
+        <button id="bk-continue" class="w-full bg-charcoal text-champagne py-[15px] text-[13px] font-semibold tracking-[0.1em] uppercase rounded-sm hover:bg-terracotta transition">Continue to Payment &rarr;</button>
+      </div>
+
+      <!-- Step: payment -->
+      <div id="bk-payment" class="hidden p-10">
+        <div class="bg-charcoal rounded-sm px-6 py-5 flex justify-between items-center mb-6">
+          <span class="text-[13px] text-white/60 tracking-wide">Reservation Fee</span>
+          <span class="text-[28px] text-gold font-light">KES 5,000</span>
+        </div>
+        <div class="text-[11px] tracking-[0.12em] uppercase mb-3">Payment Method</div>
+        <div class="grid grid-cols-3 gap-2 mb-6">
+          <button class="py-3.5 border-2 border-gold bg-gold/[0.08] rounded-sm text-[13px] font-semibold">M-Pesa</button>
+          <button disabled class="py-3.5 border-2 border-gold/15 rounded-sm text-[13px] text-ink/35 cursor-not-allowed">Card<span class="block text-[9px] tracking-wide uppercase mt-0.5">Coming soon</span></button>
+          <button disabled class="py-3.5 border-2 border-gold/15 rounded-sm text-[13px] text-ink/35 cursor-not-allowed">PayPal<span class="block text-[9px] tracking-wide uppercase mt-0.5">Coming soon</span></button>
+        </div>
+        <div class="bg-teal/[0.06] border border-teal/20 rounded-sm px-4 py-3.5 mb-4 text-[13px] leading-relaxed">
+          <strong>M-Pesa STK Push</strong><br />
+          <span class="opacity-75">Enter your Safaricom number below. You will receive a payment prompt on your phone.</span>
+        </div>
+        <div class="mb-5"><label class="block text-[11px] tracking-[0.12em] uppercase mb-2" for="bk-mpesa">Safaricom Phone Number</label><input id="bk-mpesa" type="tel" placeholder="07XX XXX XXX or 01XX XXX XXX" class="w-full px-4 py-3 text-sm bg-mist border border-gold/25 rounded-sm focus:outline-none focus:border-gold" /></div>
+        <p id="bk-pay-error" class="hidden text-sm bg-red-50 text-red-800 px-4 py-3 mb-4 rounded-sm"></p>
+        <button id="bk-pay" class="w-full bg-gold text-charcoal py-4 text-[13px] font-bold tracking-[0.1em] uppercase rounded-sm hover:bg-champagne transition">Send M-Pesa Prompt</button>
+      </div>
+
+      <!-- Step: waiting -->
+      <div id="bk-waiting" class="hidden p-10 text-center">
+        <h3 class="text-2xl mb-3">Check your phone</h3>
+        <p id="bk-wait-msg" class="text-sm text-ink/65 leading-relaxed max-w-sm mx-auto"></p>
+        <div class="w-11 h-11 mx-auto my-7 rounded-full border-[3px] border-champagne border-t-gold animate-spin"></div>
+        <button id="bk-cancel" class="text-sm underline">Cancel</button>
+      </div>
+
+      <!-- Step: success -->
+      <div id="bk-success" class="hidden p-10 text-center">
+        <div class="w-[72px] h-[72px] rounded-full bg-gold/[0.12] border-2 border-gold flex items-center justify-center mx-auto mb-7 text-[28px] text-gold">&#10003;</div>
+        <h3 class="text-[32px] font-normal mb-3">Appointment Confirmed</h3>
+        <p class="text-[15px] text-ink/65 leading-[1.75] max-w-sm mx-auto mb-4">We've received your KES 5,000 reservation. One of our sisters will call you 24 hours before your appointment to confirm.</p>
+        <div id="bk-summary" class="bg-gold/[0.08] border border-gold/20 rounded-sm px-5 py-4 my-6 text-[13px] leading-[1.8] text-left inline-block"></div>
+        <div><button class="modal-close bg-charcoal text-champagne px-10 py-3.5 text-[13px] font-semibold tracking-wide uppercase rounded-sm">Close</button></div>
+      </div>
+
+      <!-- Step: failed -->
+      <div id="bk-failed" class="hidden p-10 text-center">
+        <h3 class="text-2xl mb-3">Payment not completed</h3>
+        <p class="text-sm text-ink/65 leading-relaxed max-w-sm mx-auto mb-6">The request was cancelled or timed out. No money was taken — you can try again.</p>
+        <button id="bk-retry" class="bg-gold text-charcoal px-10 py-3.5 text-[13px] font-bold tracking-wide uppercase rounded-sm">Try Again</button>
+      </div>
     </div>
-    <div id="auth-name-wrap" class="hidden">
-      <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="auth-name">Full name</label>
-      <input id="auth-name" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
-    </div>
-    <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="auth-email">Email</label>
-    <input id="auth-email" type="email" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-4 focus:outline-beige" />
-    <label class="block font-sans text-xs tracking-[0.24em] uppercase mb-1.5" for="auth-password">Password</label>
-    <input id="auth-password" type="password" class="w-full border border-gray-300 px-3.5 py-3 font-sans text-sm mb-5 focus:outline-beige" />
-    <button id="auth-submit" class="w-full rounded-full bg-gradient-to-r from-peach to-beige font-sans text-sm tracking-[0.22em] uppercase py-3.5">Sign In</button>
-    <p id="auth-error" class="hidden font-sans text-sm bg-red-50 text-red-800 px-4 py-3 mt-3"></p>
-    <p class="font-sans text-sm text-center mt-4">
-      <a href="#" id="auth-toggle" class="underline">Need an account? Sign up</a>
-    </p>
   </div>
-</div>
 
   <script src="js/script.js"></script>
-  <script src="js/fabric.js"></script>
 </body>
 </html>
