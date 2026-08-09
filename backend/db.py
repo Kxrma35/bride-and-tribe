@@ -62,14 +62,9 @@ CREATE TABLE IF NOT EXISTS testimonials (
 """
 
 SEED_DRESSES = [
-    ("Amara", "Allure Bridals", "wedding", "A1201", "Fitted mermaid gown with hand-beaded lace bodice.", 185000),
-    ("Zawadi", "Allure Bridals", "wedding", "A1214", "Classic ballgown with sweetheart neckline.", 210000),
-    ("Neema", "Allure Romance", "wedding", "R3410", "Soft A-line gown in shimmering chiffon.", 145000),
-    ("Imani", "Lillian West", "wedding", "LW6620", "Bohemian sheath with bell sleeves and vintage lace.", 158000),
-    ("Adia", "Lillian West", "wedding", "LW6633", "Off-shoulder crepe gown with detachable overskirt.", 172000),
-    ("Sifa", "Allure Bridals", "wedding", "A1230", "Deep V plunge gown with crystal straps.", 198000),
-    ("Tulia", "Bride and Tribe Atelier", "formal", "BT2101", "Emerald satin evening gown with cowl neck.", 68000),
-    ("Furaha", "Bride and Tribe Atelier", "formal", "BT2115", "Dusty-rose chiffon bridesmaid dress.", 38000),
+    ("June", "Allure Bridals", "wedding", "A1201", "Fitted mermaid gown with hand-beaded lace bodice.", 185000, "images/dresses/june.jpg"),
+    ("Bev", "Allure Bridals", "wedding", "A1214", "Classic ballgown with sweetheart neckline.", 210000, "images/dresses/bev.jpg"),
+    ("Abby", "Allure Romance", "wedding", "R3410", "Soft A-line gown in shimmering chiffon.", 145000, "images/dresses/abby.jpg"),
 ]
 
 SEED_TESTIMONIALS = [
@@ -84,9 +79,9 @@ def init_db():
     db.executescript(SCHEMA)
     if db.execute("SELECT COUNT(*) FROM dresses").fetchone()[0] == 0:
         db.executemany(
-            "INSERT INTO dresses (name, designer, category, style_code, description, price_kes) VALUES (?,?,?,?,?,?)",
-            SEED_DRESSES,
-        )
+        "INSERT INTO dresses (name, designer, category, style_code, description, price_kes, image_url) VALUES (?,?,?,?,?,?,?)",
+         SEED_DRESSES,
+)
         db.executemany("INSERT INTO testimonials (author, body) VALUES (?,?)", SEED_TESTIMONIALS)
         db.commit()
     db.close()

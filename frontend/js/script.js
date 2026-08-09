@@ -24,10 +24,13 @@ async function loadDresses() {
       .map(
         (d) => `
       <a href="#" class="group text-center" data-dress-id="${d.id}">
-        <div class="aspect-[3/4] rounded bg-gradient-to-br from-peachsoft via-peach to-beige
-                    flex items-center justify-center transition
-                    group-hover:-translate-y-1 group-hover:shadow-xl">
-          <span class="text-6xl opacity-50">&#128087;</span>
+        <div class="aspect-[3/4] rounded overflow-hidden bg-gradient-to-br from-peachsoft via-peach to-beige
+            flex items-center justify-center transition
+            group-hover:-translate-y-1 group-hover:shadow-xl">
+  ${d.image_url
+    ? `<img src="${d.image_url}" alt="${d.name} by ${d.designer}" loading="lazy"
+            class="w-full h-full object-cover" />`
+    : `<span class="text-6xl opacity-50">&#128087;</span>`}
         </div>
         <p class="font-sans text-xs tracking-[0.28em] uppercase text-beige mt-4">${d.designer}</p>
         <p class="text-xl mt-1">${d.name}</p>
@@ -169,6 +172,13 @@ $("dress-grid").addEventListener("click", async (e) => {
   e.preventDefault();
   const res = await fetch(`${API}/dresses/${card.dataset.dressId}`);
   const data = await res.json();
+  const photo = $("dm-photo");
+if (currentDress.image_url) {
+  photo.innerHTML = `<img src="${currentDress.image_url}" alt="${currentDress.name}" class="w-full h-full object-cover" />`;
+  photo.classList.remove("hidden");
+} else {
+  photo.classList.add("hidden");
+}
   currentDress = data.dress;
 
   $("dm-designer").textContent = `${currentDress.designer} · Style ${currentDress.style_code}`;

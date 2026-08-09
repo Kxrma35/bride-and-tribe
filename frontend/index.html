@@ -96,6 +96,51 @@
     </div>
   </section>
 
+  <!-- Fabric stories -->
+<section id="stories" class="py-24 bg-navy text-white overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center max-w-xl mx-auto mb-14">
+      <p class="font-sans text-xs tracking-[0.32em] uppercase text-beige mb-3">Our fabrics</p>
+      <h2 class="text-4xl md:text-5xl">Every Dress Has a Story</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <!-- 3D canvas: sticky so it stays while panels scroll -->
+      <div class="md:sticky md:top-28 h-[420px]">
+        <canvas id="fabric-canvas" class="w-full h-full"></canvas>
+      </div>
+
+      <!-- Story panels -->
+      <div id="story-panels" class="space-y-[40vh] py-[20vh]">
+        <div class="story-panel" data-color="#FADCCB">
+          <p class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-2">Imani &middot; Lillian West</p>
+          <h3 class="text-3xl mb-3">Handwoven Lace from Turkey</h3>
+          <p class="font-sans font-light text-white/80">
+            The vintage cotton lace on Imani's bodice is handwoven in Izmir,
+            where lacemaking has passed between generations for two centuries.
+          </p>
+        </div>
+        <div class="story-panel" data-color="#DDB9A2">
+          <p class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-2">Zawadi &middot; Allure Bridals</p>
+          <h3 class="text-3xl mb-3">Silk Mikado from Italy</h3>
+          <p class="font-sans font-light text-white/80">
+            Zawadi's structured ballgown skirt is cut from Como silk mikado,
+            prized for holding its sculptural shape through a full day of dancing.
+          </p>
+        </div>
+        <div class="story-panel" data-color="#B7C9E2">
+          <p class="font-sans text-xs tracking-[0.28em] uppercase text-beige mb-2">Tulia &middot; Bride and Tribe Atelier</p>
+          <h3 class="text-3xl mb-3">Finished in Nairobi</h3>
+          <p class="font-sans font-light text-white/80">
+            Every atelier gown is cut, fitted, and hand-finished in our Nairobi
+            workshop, tailored to the bride who will wear it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
   <!-- Testimonials -->
   <section id="brides" class="py-24 bg-peachsoft">
     <div class="max-w-6xl mx-auto px-4">
@@ -195,6 +240,7 @@
       <button class="modal-close text-2xl leading-none" aria-label="Close">&times;</button>
     </div>
     <h3 id="dm-name" class="text-3xl"></h3>
+    <div id="dm-photo" class="hidden aspect-[3/4] max-h-72 mx-auto rounded overflow-hidden mb-4"></div>
     <p id="dm-desc" class="font-sans font-light text-sm text-navy/80 mt-3"></p>
     <p id="dm-price" class="font-sans text-xl mt-4"></p>
 
@@ -264,5 +310,6 @@
 </div>
 
   <script src="js/script.js"></script>
+  <script src="js/fabric.js"></script>
 </body>
 </html>
